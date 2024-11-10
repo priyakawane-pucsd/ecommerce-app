@@ -4,6 +4,45 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - email
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The unique username of the user.
+ *         email:
+ *           type: string
+ *           description: The unique email address of the user.
+ *         password:
+ *           type: string
+ *           description: The password for the user account.
+ *         role:
+ *           type: string
+ *           enum: [user, admin]
+ *           default: user
+ *           description: The role of the user, which can either be 'user' or 'admin'.
+ *     Login:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The username of the user attempting to log in.
+ *         password:
+ *           type: string
+ *           description: The password of the user attempting to log in.
+ */
+
+/**
+ * @swagger
  * /auth/signup:
  *   post:
  *     summary: Sign up a new user
@@ -13,16 +52,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
- *               role:
- *                 type: string
- *                 enum: [user, admin]
- *                 default: user
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       201:
  *         description: User created successfully
@@ -42,12 +72,7 @@ router.post('/signup', authController.signup);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
  *         description: Login successful

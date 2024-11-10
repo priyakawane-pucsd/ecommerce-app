@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: String,
-  price: Number,
-  visible: { type: Boolean, default: true },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  description: { type: String },
+  price: { type: Number, required: true },
+  addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  isApproved: { type: Boolean, default: false }, // Admin approval flag
 });
 
 module.exports = mongoose.model('Product', productSchema);
